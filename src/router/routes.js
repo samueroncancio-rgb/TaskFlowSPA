@@ -1,4 +1,5 @@
 import { renderLogin } from "../views/auth/login";
+import { renderNotFound } from "../views/auth/not-found";
 import { renderRegister } from "../views/auth/register";
 import { renderHome } from "../views/home";
 import { renderTasksForm } from "../views/tasks/task-form";
@@ -65,4 +66,4 @@ const routes ={
 
 
 }
-export const nowFoundWeiws
+export const nowFoundWeiws=renderNotFound
