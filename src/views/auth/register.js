@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro | TaskFlowSPA</title>
-  </head>
-  <body class="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-100 text-slate-800">
+export function renderRegister() {
+  return `
     <main class="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
       <section class="hidden border-r border-blue-100 bg-blue-600 p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <a class="text-xl font-black tracking-tight" href="/src/views/home.html">TaskFlowSPA</a>
@@ -68,6 +62,6 @@
       </section>
     </main>
 
-    <script type="module" src="../main.js"></script>
-  </body>
-</html>
+   `
+  
+}

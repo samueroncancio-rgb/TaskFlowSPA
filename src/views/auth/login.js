@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | TaskFlowSPA</title>
-  </head>
-  <body class="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-100 text-slate-800">
+export function renderLogin() {
+    return `
+    
     <main class="grid min-h-screen lg:grid-cols-[1fr_0.95fr]">
       <section class="flex items-center justify-center px-6 py-10">
         <div class="w-full max-w-xl rounded-[2rem] border border-blue-100 bg-white p-8 shadow-xl shadow-blue-100/70">
@@ -49,6 +44,7 @@
       </section>
     </main>
 
-    <script type="module" src="../main.js"></script>
-  </body>
-</html>
+   
+    `
+    
+}
