@@ -1,6 +1,6 @@
 import { renderLogin } from "../views/auth/login";
 import { renderNotFound } from "../views/auth/not-found";
-import { renderRegister } from "../views/auth/register";
+import { renderRegister, setupRegister } from "../views/auth/register";
 import { renderHome } from "../views/home";
 import { renderTasksForm } from "../views/tasks/task-form";
 import { renderTasks } from "../views/tasks/tasks";
@@ -9,6 +9,10 @@ import { renderDashboard } from "../views/users/dashboard";
 import { renderProfile } from "../views/users/profile";
 
 export const routes ={
+    "/":{
+        render:renderHome,
+        requiresAuth:false
+    },
     "/home":{
         render:renderHome,
         requiresAuth:false
@@ -21,7 +25,7 @@ export const routes ={
     },
     "/register":{
         render:renderRegister,
-        //setup: setupRegister,
+        setup: setupRegister,
         requiresAuth:false,
         redirectIfAuthenticated:true,
     },
