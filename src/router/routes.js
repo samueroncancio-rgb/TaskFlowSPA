@@ -8,62 +8,62 @@ import { renderAdmin } from "../views/users/admin";
 import { renderDashboard } from "../views/users/dashboard";
 import { renderProfile } from "../views/users/profile";
 
-const routes ={
-    "/":{
+export const routes ={
+    "/home":{
         render:renderHome,
         requiresAuth:false
     },
     "/login":{
-        renfer:renderLogin,
-        setup:setupLogin,
+        render:renderLogin,
+        //setup:setupLogin,
         requiresAuth:false,
         redirectIfAuthenticated:true,
     },
     "/register":{
         render:renderRegister,
-        setup: setupRegister,
+        //setup: setupRegister,
         requiresAuth:false,
         redirectIfAuthenticated:true,
     },
     "/admin":{
-        renfer:renderAdmin,
-        setup:setupLogin,
+        render:renderAdmin,
+        //setup:setupLogin,
         requiresAuth:true,
         allowedRoles:["ADMIN"]
     },
     "/dashboard":{
         render:renderDashboard,
-        setup: setupDashboard,
+        //setup: setupDashboard,
         requiresAuth:true,
     },
     "/tasks":{
         render:renderTasks,
-        setup:setupRender,
+        //setup:setupRender,
         requiresAuth:true,
 
 
     },
     "/tasks/new":{
         render:renderTasksForm,
-        setup:setupTasksForm,
+        //setup:setupTasksForm,
         requiresAuth:true,
 
 
     },
     "/tasks/edit":{
         render:renderTasksForm,
-        setup:setupTasksForm,
+        //setup:setupTasksForm,
         requiresAuth:true,
 
     },
     "/profile":{
         render:renderProfile,
         requiresAuth:true,
-        setup:setupProfile,
+        //setup:setupProfile,
 
     },
 
 
 
 }
-export const nowFoundWeiws=renderNotFound
+export const notFoundWeiws=renderNotFound
