@@ -1,3 +1,5 @@
+import { createUsers } from "../../services/users.service"
+
 export function renderRegister() {
   return `
     <main class="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
@@ -84,14 +86,11 @@ form.addEventListener("submit",async(e)=>{
     role:role.value
   }
 
-  const response = await fetch("http://localhost:3000/users",{
-    method:"POST",
-    headers:{
-      "content-type": "application/json"
-    },
-    body:JSON.stringify(newUser)
-  })
+  await createUsers()
+
   form.reset()
+  history.pushState(null, null, '/dashboard');
+  window.dispatchEvent(new Event('popstate'));
 })
 
 }
