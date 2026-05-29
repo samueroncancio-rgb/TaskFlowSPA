@@ -18,5 +18,24 @@ export async function createUsers(newUser) {
 }
 
 export async function userById(id) {
-    
+    const response = await fetch(`${endpointUser}/${id}`);
+    const data = await response.json();
+    return data;
+}
+export async function updateUser(id, updateData) {
+    const response = await fetch(`${endpointUser}/${id}`,{
+        method:"PUT",
+        headers:{
+            "content- type":"application/json"
+        
+        },
+        body:JSON.stringify(updateData)
+    });
+    return response
+}
+export async function deleteUser(id) {
+ const response = await fetch(`${endpointUser}/${id}`,{
+    method:"DELETE"
+ });
+ return response;   
 }
