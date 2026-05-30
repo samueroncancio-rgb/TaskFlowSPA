@@ -3,5 +3,4 @@ import "./styles/global.css";
 
 
 
-renderRoute()
 initRouter()

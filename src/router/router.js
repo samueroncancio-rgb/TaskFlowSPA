@@ -8,11 +8,12 @@ export function renderRoute() {
     const currentPath = window.location.pathname
     const route = routes [currentPath] ?? {render : notFoundWeiws}
 
+
+    const currentUser = 
     app.innerHTML = route.render()
 
     if (route.setup){
-        route.setup()
-
+        route.setup()        
     }
 
 

@@ -85,8 +85,8 @@ form.addEventListener("submit",async(e)=>{
     password:password.value,
     role:role.value
   }
-
-  await createUsers()
+   
+  await createUsers(newUser)
 
   form.reset()
   history.pushState(null, null, '/dashboard');

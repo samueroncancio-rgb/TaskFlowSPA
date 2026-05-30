@@ -1,3 +1,5 @@
+import { getUsers } from "../../services/users.service"
+
 export function renderLogin() {
     return `
     
@@ -24,7 +26,7 @@ export function renderLogin() {
               <label class="mb-2 block text-sm font-medium text-slate-700" for="password">Contrasena</label>
               <input id="password" type="password" placeholder="Ingresa tu contrasena" class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none" />
             </div>
-            <a class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" href="/dashboard">
+            <a id="btn-submit" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" href="/dashboard">
               Entrar al dashboard
             </a>
           </form>
@@ -47,4 +49,28 @@ export function renderLogin() {
    
     `
     
+}
+export function setupLogin() {
+   const btn = document.getElementById("btn-submit")
+   btn.addEventListener("click",async(e)=>{
+    e.preventDefault()
+
+    const email = document.getElementById("email").value
+    const password = document.getElementById("password").value
+
+    const users = await getUsers()
+
+    const userFound = users.find(user => {return email == user.email && password == user.password} )
+    
+    if(userFound){
+      localStorage.setItem("user",JSON.stringify(userFound))
+      renderRoute()
+    }else{
+      alert("contraseña o imail incorrecto")
+    }
+
+
+
+   })
+  
 }

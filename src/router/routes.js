@@ -1,4 +1,4 @@
-import { renderLogin } from "../views/auth/login";
+import { renderLogin, setupLogin } from "../views/auth/login";
 import { renderNotFound } from "../views/auth/not-found";
 import { renderRegister, setupRegister } from "../views/auth/register";
 import { renderHome } from "../views/home";
@@ -19,7 +19,7 @@ export const routes ={
     },
     "/login":{
         render:renderLogin,
-        //setup:setupLogin,
+        setup:setupLogin,
         requiresAuth:false,
         redirectIfAuthenticated:true,
     },
