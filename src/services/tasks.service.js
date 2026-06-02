@@ -1,10 +1,15 @@
-const endpointTask = "http://localhost:3000/tasks ";
-export async function getTask(userid) {
-    const url = userid ? `${indepointTask}?userid=${userid}`: endpointTask;
+const endpointTask = "http://localhost:3000/tasks";
+
+export async function getTask(userId) {
+    const url = userId
+      ? `${endpointTask}?userId=${userId}`
+      : endpointTask;
+
     const response = await fetch(url);
     const data = await response.json();
     return data;
 }
+
 export async function createTask(task) {
     const response = await fetch(endpointTask, {
         method:"POST",
@@ -16,11 +21,10 @@ export async function createTask(task) {
     })
     return response
 }
-export async function getTaskById(userid) {
- const response =await fetch(`${endpointTask}/${userId}`);
- const data = await response.json();
- return data;
-
+export async function getTaskById(id) {
+  const response = await fetch(`${endpointTask}/${id}`);
+  const data = await response.json();
+  return data;
 }
 
 export async function updateTask(id, updatedData) {
@@ -36,7 +40,7 @@ export async function updateTask(id, updatedData) {
 }
 export async function deleteTask(id) {
     const response = await fetch(`${endpointTask}/${id}`,{
-        method:"delete"
+        method:"DELETE"
     });
     return response
     

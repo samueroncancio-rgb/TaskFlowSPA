@@ -2,8 +2,8 @@ import { renderLogin, setupLogin } from "../views/auth/login";
 import { renderNotFound } from "../views/auth/not-found";
 import { renderRegister, setupRegister } from "../views/auth/register";
 import { renderHome } from "../views/home";
-import { renderTasksForm } from "../views/tasks/task-form";
-import { renderTasks } from "../views/tasks/tasks";
+import { renderTasksForm, setupTasksForm } from "../views/tasks/task-form";
+import { renderTasks, setupTasks } from "../views/tasks/tasks";
 import { renderAdmin } from "../views/users/admin";
 import { renderDashboard } from "../views/users/dashboard";
 import { renderProfile } from "../views/users/profile";
@@ -31,7 +31,7 @@ export const routes ={
     },
     "/admin":{
         render:renderAdmin,
-        //setup:setupLogin,
+        setup:setupLogin,
         requiresAuth:true,
         allowedRoles:["ADMIN"]
     },
@@ -42,14 +42,14 @@ export const routes ={
     },
     "/tasks":{
         render:renderTasks,
-        //setup:setupRender,
+        setup:setupTasks,
         requiresAuth:true,
 
 
     },
     "/tasks/new":{
         render:renderTasksForm,
-        //setup:setupTasksForm,
+        setup:setupTasksForm,
         requiresAuth:true,
 
 

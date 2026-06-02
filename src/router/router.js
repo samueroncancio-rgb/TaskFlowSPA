@@ -1,3 +1,4 @@
+import { getCurrentUser } from "../services/auth.service";
 import { notFoundWeiws, routes } from "./routes";
 
 export function renderRoute() {
@@ -9,7 +10,7 @@ export function renderRoute() {
     const route = routes [currentPath] ?? {render : notFoundWeiws}
 
 
-    const currentUser = 
+    const currentUser = getCurrentUser()
     app.innerHTML = route.render()
 
     if (route.setup){

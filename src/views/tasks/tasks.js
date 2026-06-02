@@ -25,7 +25,7 @@ export function renderTasks() {
         </a>
       </section>
 
-      <section class="mt-8 grid gap-4">
+      <section  id="tasks-container" class="mt-8 grid gap-4">
         <article class="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg shadow-blue-50">
           <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
             <div>
@@ -61,3 +61,85 @@ export function renderTasks() {
   `
   
 }
+
+
+
+import { deleteTask, getTask } from "../../services/tasks.service";
+
+export async function setupTasks() {
+  const container = document.getElementById("tasks-container");
+
+  if (!container) return;
+
+  const currentUser = JSON.parse(
+    localStorage.getItem("user")
+  );
+
+  const tasks = await getTask(currentUser.id);
+
+  container.innerHTML = tasks.map(task => `
+    <article class="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg shadow-blue-50">
+      <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.25em] text-blue-600">
+            ${task.status}
+          </p>
+
+          <h2 class="mt-2 text-2xl font-bold text-slate-900">
+            ${task.title}
+          </h2>
+
+          <p class="mt-3 max-w-2xl text-slate-600">
+            ${task.description}
+          </p>
+
+          <p class="mt-3 text-sm text-slate-500">
+            ${task.date}
+          </p>
+        </div>
+
+        <div class="flex gap-3">
+          <button
+            class="edit-task rounded-full border border-blue-200 px-4 py-2 text-sm font-semibold text-blue-700"
+            data-id="${task.id}"
+          >
+            Editar
+          </button>
+
+          <button
+            class="delete-task rounded-full border border-red-200 px-4 py-2 text-sm font-semibold text-red-600"
+            data-id="${task.id}"
+          >
+            Eliminar
+          </button>
+        </div>
+
+      </div>
+    </article>
+  `).join("");
+
+  const deleteButtons =
+  document.querySelectorAll(".delete-task");
+
+deleteButtons.forEach(button => {
+  button.addEventListener("click", async () => {
+
+    const confirmed = confirm(
+      "¿Deseas eliminar esta tarea?"
+    );
+
+    if (!confirmed) return;
+
+    const id = button.dataset.id;
+
+    await deleteTask(id);
+
+    await setupTasks();
+
+    console.log("eliminado");
+  });
+});
+}
+
+
