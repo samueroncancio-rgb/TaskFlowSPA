@@ -1,4 +1,5 @@
 import { createUsers } from "../../services/users.service"
+import { crearSesion } from "../../services/auth.service"
 
 export function renderRegister() {
   return `
@@ -63,7 +64,7 @@ export function renderRegister() {
     </main>
 
    `
-  
+
 }
 
 
@@ -75,22 +76,23 @@ export function setupRegister() {
   const password = document.getElementById("register-password")
   const role = document.getElementById("register-role")
 
-form.addEventListener("submit",async(e)=>{
-  e.preventDefault()
-  const newUser = {
-    date:Date.now(),
-    name:name.value,
-    lastname:lastname.value,
-    email:email.value,
-    password:password.value,
-    role:role.value
-  }
-   
-  await createUsers(newUser)
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const newUser = {
+      date: Date.now(),
+      name: name.value,
+      lastname: lastname.value,
+      email: email.value,
+      password: password.value,
+      role: role.value
+    }
 
-  form.reset()
-  history.pushState(null, null, '/dashboard');
-  window.dispatchEvent(new Event('popstate'));
-})
+    await createUsers(newUser)
+    crearSesion(newUser)
+
+    form.reset()
+    history.pushState(null, null, '/dashboard');
+    window.dispatchEvent(new Event('popstate'));
+  })
 
 }

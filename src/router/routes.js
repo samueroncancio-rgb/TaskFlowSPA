@@ -4,65 +4,65 @@ import { renderRegister, setupRegister } from "../views/auth/register";
 import { renderHome } from "../views/home";
 import { renderTasksForm, setupTasksForm } from "../views/tasks/task-form";
 import { renderTasks, setupTasks } from "../views/tasks/tasks";
-import { renderAdmin } from "../views/users/admin";
+import { renderAdmin, setupAdmin } from "../views/users/admin";
 import { renderDashboard } from "../views/users/dashboard";
 import { renderProfile } from "../views/users/profile";
 
-export const routes ={
-    "/":{
-        render:renderHome,
-        requiresAuth:false
+export const routes = {
+    "/": {
+        render: renderDashboard,
+        requiresAuth: true
     },
-    "/home":{
-        render:renderHome,
-        requiresAuth:false
+    "/home": {
+        render: renderHome,
+        requiresAuth: false
     },
-    "/login":{
-        render:renderLogin,
-        setup:setupLogin,
-        requiresAuth:false,
-        redirectIfAuthenticated:true,
+    "/login": {
+        render: renderLogin,
+        setup: setupLogin,
+        requiresAuth: false,
+        redirectIfAuthenticated: true,
     },
-    "/register":{
-        render:renderRegister,
+    "/register": {
+        render: renderRegister,
         setup: setupRegister,
-        requiresAuth:false,
-        redirectIfAuthenticated:true,
+        requiresAuth: false,
+        redirectIfAuthenticated: true,
     },
-    "/admin":{
-        render:renderAdmin,
-        setup:setupLogin,
-        requiresAuth:true,
-        allowedRoles:["ADMIN"]
+    "/admin": {
+        render: renderAdmin,
+        setup: setupAdmin,
+        requiresAuth: true,
+        allowedRoles: ["ADMIN"]
     },
-    "/dashboard":{
-        render:renderDashboard,
+    "/dashboard": {
+        render: renderDashboard,
         //setup: setupDashboard,
-        requiresAuth:true,
+        requiresAuth: true,
     },
-    "/tasks":{
-        render:renderTasks,
-        setup:setupTasks,
-        requiresAuth:true,
-
-
-    },
-    "/tasks/new":{
-        render:renderTasksForm,
-        setup:setupTasksForm,
-        requiresAuth:true,
+    "/tasks": {
+        render: renderTasks,
+        setup: setupTasks,
+        requiresAuth: true,
 
 
     },
-    "/tasks/edit":{
-        render:renderTasksForm,
-        //setup:setupTasksForm,
-        requiresAuth:true,
+    "/tasks/new": {
+        render: renderTasksForm,
+        setup: setupTasksForm,
+        requiresAuth: true,
+
 
     },
-    "/profile":{
-        render:renderProfile,
-        requiresAuth:true,
+    "/tasks/edit": {
+        render: renderTasksForm,
+        setup: setupTasksForm,
+        requiresAuth: true,
+
+    },
+    "/profile": {
+        render: renderProfile,
+        requiresAuth: true,
         //setup:setupProfile,
 
     },
@@ -70,4 +70,4 @@ export const routes ={
 
 
 }
-export const notFoundWeiws=renderNotFound
+export const notFoundViews = renderNotFound

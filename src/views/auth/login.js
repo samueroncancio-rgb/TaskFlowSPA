@@ -1,7 +1,8 @@
 import { getUsers } from "../../services/users.service"
+import { crearSesion } from "../../services/auth.service"
 
 export function renderLogin() {
-    return `
+  return `
     
     <main class="grid min-h-screen lg:grid-cols-[1fr_0.95fr]">
       <section class="flex items-center justify-center px-6 py-10">
@@ -48,11 +49,12 @@ export function renderLogin() {
 
    
     `
-    
+
 }
+
 export function setupLogin() {
-   const btn = document.getElementById("btn-submit")
-   btn.addEventListener("click",async(e)=>{
+  const btn = document.getElementById("btn-submit")
+  btn.addEventListener("click", async (e) => {
     e.preventDefault()
 
     const email = document.getElementById("email").value
@@ -60,17 +62,15 @@ export function setupLogin() {
 
     const users = await getUsers()
 
-    const userFound = users.find(user => {return email == user.email && password == user.password} )
-    
-    if(userFound){
-      localStorage.setItem("user",JSON.stringify(userFound))
-      renderRoute()
-    }else{
-      alert("contraseña o imail incorrecto")
+    const userFound = users.find(user => email == user.email && password == user.password)
+
+    if (userFound) {
+      crearSesion(userFound);
+
+      window.history.pushState({}, "", "/dashboard");
+      window.dispatchEvent(new Event("popstate"));
+    } else {
+      alert("Credenciales incorrectas");
     }
-
-
-
-   })
-  
+  })
 }

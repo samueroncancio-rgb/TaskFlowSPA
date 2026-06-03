@@ -1,18 +1,10 @@
-import { createTask } from "../../services/tasks.service";
+import { Header } from "../../components/Header";
+import { obtenerSesion } from "../../services/auth.service";
+import { createTask, getTaskById, updateTask } from "../../services/tasks.service";
 
 export function renderTasksForm() {
   return `
-    <header class="border-b border-blue-100 bg-white/90 backdrop-blur">
-      <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <a class="text-xl font-black text-blue-900" href="/home">TaskFlowSPA</a>
-        <nav class="hidden gap-3 md:flex">
-          <a class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/dashboard">Dashboard</a>
-          <a class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/tasks">Tareas</a>
-          <a class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/profile">Perfil</a>
-        </nav>
-      </div>
-    </header>
-
+    ${Header()}
     <main class="mx-auto max-w-5xl px-6 py-10">
       <section class="rounded-[2rem] border border-blue-100 bg-white p-8 shadow-xl shadow-blue-50">
         <p class="text-sm font-semibold uppercase tracking-[0.3em] text-blue-600">Formulario</p>
@@ -65,18 +57,38 @@ export function renderTasksForm() {
 
 
 
-export function setupTasksForm() {
+export async function setupTasksForm() {
   console.log("setupTasksForm ejecutado");
   const form = document.getElementById("task-form");
 
   if (!form) return;
 
+  const taskId =
+    localStorage.getItem("taskId");
+
+  if (taskId) {
+
+    const task =
+      await getTaskById(taskId);
+
+    document.getElementById("title").value =
+      task.title;
+
+    document.getElementById("description").value =
+      task.description;
+
+    document.getElementById("status").value =
+      task.status;
+
+    document.getElementById("date").value =
+      task.date;
+
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const currentUser = JSON.parse(
-      localStorage.getItem("user")
-    );
+    const currentUser = obtenerSesion();
 
     const title =
       document.getElementById("title").value;
@@ -90,6 +102,9 @@ export function setupTasksForm() {
     const date =
       document.getElementById("date").value;
 
+    console.log("currentUser:", currentUser);
+    console.log("taskId:", taskId);
+
     const newTask = {
       title,
       description,
@@ -100,7 +115,20 @@ export function setupTasksForm() {
       createdAt: Date.now()
     };
 
-    await createTask(newTask);
+    if (taskId) {
+
+      await updateTask(
+        taskId,
+        newTask
+      );
+
+      localStorage.removeItem("taskId");
+
+    } else {
+
+      await createTask(newTask);
+
+    }
 
     form.reset();
 
