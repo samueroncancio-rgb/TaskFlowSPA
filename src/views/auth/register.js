@@ -87,8 +87,11 @@ export function setupRegister() {
       role: role.value
     }
 
-    await createUsers(newUser)
-    crearSesion(newUser)
+    const response = await createUsers(newUser)
+    if (response && response.ok) {
+      const createdUser = await response.json()
+      crearSesion(createdUser)
+    }
 
     form.reset()
     history.pushState(null, null, '/dashboard');

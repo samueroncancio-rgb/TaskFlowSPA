@@ -5,12 +5,22 @@ import { renderHome } from "../views/home";
 import { renderTasksForm, setupTasksForm } from "../views/tasks/task-form";
 import { renderTasks, setupTasks } from "../views/tasks/tasks";
 import { renderAdmin, setupAdmin } from "../views/users/admin";
-import { renderDashboard } from "../views/users/dashboard";
-import { renderProfile } from "../views/users/profile";
+import { renderDashboard, setupDashboard } from "../views/users/dashboard";
+import { renderProfile, setupProfile } from "../views/users/profile";
 
+/**
+ * Mapa de rutas de la aplicación.
+ * Cada ruta puede tener:
+ * - render: Función que devuelve el HTML de la vista.
+ * - setup: (Opcional) Lógica JS que se ejecuta después de inyectar el HTML.
+ * - requiresAuth: Booleano para proteger la ruta.
+ * - allowedRoles: (Opcional) Array de roles permitidos para la ruta.
+ * - redirectIfAuthenticated: Redirige al Dashboard si el usuario ya está logueado (ej. Login/Register).
+ */
 export const routes = {
     "/": {
         render: renderDashboard,
+        setup: setupDashboard,
         requiresAuth: true
     },
     "/home": {
@@ -37,37 +47,30 @@ export const routes = {
     },
     "/dashboard": {
         render: renderDashboard,
-        //setup: setupDashboard,
+        setup: setupDashboard,
         requiresAuth: true,
     },
     "/tasks": {
         render: renderTasks,
         setup: setupTasks,
         requiresAuth: true,
-
-
     },
     "/tasks/new": {
         render: renderTasksForm,
         setup: setupTasksForm,
         requiresAuth: true,
-
-
     },
     "/tasks/edit": {
         render: renderTasksForm,
         setup: setupTasksForm,
         requiresAuth: true,
-
     },
     "/profile": {
         render: renderProfile,
+        setup: setupProfile,
         requiresAuth: true,
-        //setup:setupProfile,
-
     },
-
-
-
 }
+
+// Vista por defecto para rutas no encontradas
 export const notFoundViews = renderNotFound

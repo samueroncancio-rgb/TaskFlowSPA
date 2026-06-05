@@ -1,13 +1,28 @@
+import { getCurrentUser } from "../services/auth.service";
+
+/**
+ * Renderiza la pantalla de inicio (Landing Page).
+ * Utiliza lógica condicional para mostrar u ocultar botones de acceso según el estado de la sesión.
+ */
 export function renderHome() {
-    return `
+  // Verifica si hay un usuario logueado actualmente
+  const user = getCurrentUser();
+
+  return `
      
     <header class="border-b border-blue-100 bg-white/90 backdrop-blur">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a class="text-xl font-black tracking-tight text-blue-900" href="/home">TaskFlowSPA</a>
         <nav class="hidden items-center gap-3 md:flex">
           <a class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/home">Home</a>
-          <a class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/login">Login</a>
-          <a class="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500" href="/register">Registrarse</a>
+          
+          <!-- Si NO hay sesión, muestra Login/Registro. Si hay sesión, muestra botón al Dashboard -->
+          ${!user ? `
+            <a class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/login">Login</a>
+            <a class="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500" href="/register">Registrarse</a>
+          ` : `
+            <a class="rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100" href="/dashboard">Ir al Dashboard</a>
+          `}
         </nav>
       </div>
     </header>
@@ -23,12 +38,19 @@ export function renderHome() {
             TaskFlowSPA presenta el recorrido principal del proyecto con una interfaz uniforme, amable y lista para convertirse
             luego en una SPA real con autenticacion, roles, permisos y CRUD de tareas.
           </p>
+          
+          <!-- Botones de acción del Hero (también condicionales) -->
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-500" href="/login">Iniciar sesion</a>
-            <a class="inline-flex items-center justify-center rounded-2xl border border-blue-200 bg-white px-6 py-3 text-sm font-bold text-blue-700 hover:bg-blue-50" href="/register">Crear cuenta</a>
+            ${!user ? `
+              <a class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-500" href="/login">Iniciar sesion</a>
+              <a class="inline-flex items-center justify-center rounded-2xl border border-blue-200 bg-white px-6 py-3 text-sm font-bold text-blue-700 hover:bg-blue-50" href="/register">Crear cuenta</a>
+            ` : `
+              <a class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-200 hover:bg-blue-500" href="/dashboard">Volver a mi espacio</a>
+            `}
           </div>
         </div>
 
+        <!-- Tarjetas Informativas sobre las vistas del proyecto -->
         <section class="rounded-[2rem] border border-blue-100 bg-white p-8 shadow-xl shadow-blue-100/70">
           <h2 class="text-2xl font-bold text-slate-900">Vistas del proyecto</h2>
           <div class="mt-6 grid gap-4 sm:grid-cols-2">
@@ -52,9 +74,5 @@ export function renderHome() {
         </section>
       </section>
     </main>
-
-   
-
-    `
-    
+    `;
 }
